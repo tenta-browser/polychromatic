@@ -37,14 +37,14 @@ type eventualLogEntry struct {
 	str       string
 }
 
-// Type EventualLogger provides a buffer for log entries whose usefulnes cannot be
+// EventualLogger provides a buffer for log entries whose usefulnes cannot be
 // determined at creation time (but only eventually)
 type EventualLogger struct {
 	entries []*eventualLogEntry
 	w       *sync.Mutex
 }
 
-// Creates a new eventual logger
+// NewEventualLogger creates a new eventual logger
 func NewEventualLogger() *EventualLogger {
 	return &EventualLogger{
 		entries: make([]*eventualLogEntry, 0),
@@ -69,7 +69,7 @@ func (l *EventualLogger) Queuef(level logrus.Level, format string, args ...inter
 	l.entries = append(l.entries, e)
 }
 
-// Queue buffers teh selected message to be written later
+// Queue buffers the selected message to be written later
 func (l *EventualLogger) Queue(level logrus.Level, message string) {
 	e := &eventualLogEntry{
 		date:      time.Now(),

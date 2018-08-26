@@ -39,10 +39,12 @@ func init() {
 	// TODO: Deal with how to log to files or something
 }
 
+// SetLogLevel globally sets the log level for all loggers obtained from this package
 func SetLogLevel(lvl logrus.Level) {
 	log.Level = lvl
 }
 
+// GetLogger sets up a new logger with the specified package name as the prefix.
 func GetLogger(pkg string) *logrus.Entry {
 	return log.WithField("prefix", pkg)
 }
