@@ -26,6 +26,7 @@ import (
 	"github.com/mattn/go-colorable"
 	"github.com/sirupsen/logrus"
 	"github.com/x-cray/logrus-prefixed-formatter"
+	"io"
 )
 
 var log *logrus.Logger = logrus.New()
@@ -47,4 +48,14 @@ func SetLogLevel(lvl logrus.Level) {
 // GetLogger sets up a new logger with the specified package name as the prefix.
 func GetLogger(pkg string) *logrus.Entry {
 	return log.WithField("prefix", pkg)
+}
+
+// SetOutput globally sets the output buffer
+func SetOutput(out io.Writer) {
+	log.Out = out
+}
+
+// UseStderr forces the log to use StdErr instead of StdOut
+func UseStderr() {
+	SetOutput(colorable.NewColorableStderr())
 }
